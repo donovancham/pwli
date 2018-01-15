@@ -100,7 +100,7 @@ waitinput = True
 
 while doing:
     if waitinput == True:
-        print("Waiting for user to input... \n")
+        print("\n\tWaiting for user to input... \n")
     event = abc.stick.wait_for_event()
     print("The joystick was {} {}".format(event.action, event.direction))
 

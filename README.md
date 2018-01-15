@@ -39,6 +39,10 @@ For the latter, this project makes use of the Sensehats 8x8 LED matrix shown bel
 - Added function to get daily forecasted weather (not working as this function requires a premium API key)
 - Adjusted logic to print an animation which is closer to the current weather outside
 
+### v1.3
+- Cleaned up all bugs in error handling
+- Fixed weather animation logic bug
+
 ## References
 - [OpenWeatherMap list of weather conditions](https://openweathermap.org/weather-conditions)
 - [pyOWM](https://github.com/csparpa/pyowm)

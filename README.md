@@ -1,5 +1,5 @@
 # Pi Weather LED Indicator (pwli)
-This project makes use of the [Sensehat](https://www.raspberrypi.org/products/sense-hat/) add-on board for the Raspberry Pi to output open source weather data from [OpenWeatherMap](https://openweathermap.org/).
+This project makes use of the [Sensehat](https://www.raspberrypi.org/products/sense-hat/) add-on board for the Raspberry Pi to output open source weather data from [OpenWeatherMap](https://openweathermap.org/). This project is created using Pycharm.
  
 ## Abstract
  This is a project which I have undertaken while I was doing my internship at Kumamoto National College of Technology in Japan. Thanks to Kanzaki Sensei who provided me with the resources to finish the project.
@@ -11,7 +11,7 @@ The project comprises of two main components, getting the weather data and displ
 Getting and processing the weather data is done by using **pyOWM** which is a python API for OpenWeatherMap. However, use of this API requires an API key and the types of weather data which a free user can get is limited. As such, this application is only able to get the current weather and the 3-hourly forecast up to 5 days in advance.
 
 ### Output
-For the latter, this project makes use of the http://pyowm.readthedocs.io/en/latest/_modules/pyowm/webapi25/weather.html?highlight=get_statusSensehats 8x8 LED matrix shown below to display the weather information. This enables the application to play animations of different weather conditions.
+For the latter, this project makes use of the Sensehats 8x8 LED matrix shown below to display the weather information. This enables the application to play animations of different weather conditions.
 ![8x8 Matrix](https://www.raspberrypi.org/app/uploads/2017/05/Sense-HAT-plugged-in-1-1383x1080.jpg "Sensehat")
 
 ## Requirements

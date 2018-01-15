@@ -1,5 +1,17 @@
 # Pi Weather LED Indicator (pwli)
 This project makes use of the [Sensehat](https://www.raspberrypi.org/products/sense-hat/) add-on board for the Raspberry Pi to output open source weather data from [OpenWeatherMap](https://openweathermap.org/). This project is created using Pycharm.
+
+## Usage
+    # Print help
+    python3 pwli.py
+    
+    # Get current weather information
+    python3 pwli.py current [location]
+    
+    # Get 3-hourly forecast information
+    # [days later] -> Number of days later from current day (0-4)
+    # [hour of day] -> Time of day for forecast (0, 3, 6, 9, 12, 15, 18, 21)
+    python3 pwli 3hfc [location] [days later] [hour of day]
  
 ## Abstract
  This is a project which I have undertaken while I was doing my internship at Kumamoto National College of Technology in Japan. Thanks to Kanzaki Sensei who provided me with the resources to finish the project.

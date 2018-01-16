@@ -4,6 +4,7 @@ import senseLED
 
 from sense_hat import SenseHat
 from time import sleep
+import json
 
 # sense = SenseHat()
 #
@@ -93,45 +94,64 @@ from time import sleep
 # senseLED.rain_animation()
 # senseLED.slowrain_animation()
 
-abc = SenseHat()
+print('sep')
 
+# abc = SenseHat()
+#
+# doing = True
+# waitinput = True
+#
+# while doing:
+#     if waitinput == True:
+#         print("\n\tWaiting for user to input... \n")
+#     event = abc.stick.wait_for_event()
+#     print("The joystick was {} {}".format(event.action, event.direction))
+#
+#     if event.action == "pressed":
+#         waitinput = False
+#         if event.direction == "up":
+#             senseLED.rain_animation()
+#         elif event.direction == "down":
+#             senseLED.snow_animation()
+#         elif event.direction == "left":
+#             senseLED.tstorm_animation()
+#         elif event.direction == "right":
+#             senseLED.slowrain_animation()
+#     elif event.action == "released":
+#         waitinput = True
+#         if event.direction == "up":
+#             senseLED.sun_animation()
+#         elif event.direction == "down":
+#             senseLED.cloud_animation()
+#         elif event.direction == "right":
+#             senseLED.haze_animation()
+#     # Stop animation
+#     elif event.action == "held":
+#         if event.direction == "middle":
+#             doing = False
+#
+#     abc.clear()
+#     sleep(1)
+#
+# senseLED.img_creeperSSS(2)
+
+location = "ueki"
+output = pyowmWeather.getfullfweather(location)
+# result = json.loads(output[1])
+result = output[1]
+print(result)
+json.dumps(result, indent=4, sort_keys=True)
+
+listdays = []
+for key in result.keys():
+    listdays.append(key)
+listdays.sort()
+
+
+print("\n\tSelect the data you want to output using the joystick")
 doing = True
-waitinput = True
 
-while doing:
-    if waitinput == True:
-        print("\n\tWaiting for user to input... \n")
-    event = abc.stick.wait_for_event()
-    print("The joystick was {} {}".format(event.action, event.direction))
-
-    if event.action == "pressed":
-        waitinput = False
-        if event.direction == "up":
-            senseLED.rain_animation()
-        elif event.direction == "down":
-            senseLED.snow_animation()
-        elif event.direction == "left":
-            senseLED.tstorm_animation()
-        elif event.direction == "right":
-            senseLED.slowrain_animation()
-    elif event.action == "released":
-        waitinput = True
-        if event.direction == "up":
-            senseLED.sun_animation()
-        elif event.direction == "down":
-            senseLED.cloud_animation()
-        elif event.direction == "right":
-            senseLED.haze_animation()
-    # Stop animation
-    elif event.action == "held":
-        if event.direction == "middle":
-            doing = False
-
-    abc.clear()
-    sleep(1)
-
-senseLED.img_creeperSSS(2)
-
+# sense=SenseHat()
 # # Colours
 # red = (255,0,0)
 # green = (0,255,0)

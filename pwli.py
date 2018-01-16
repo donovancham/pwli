@@ -7,43 +7,43 @@ from datetime import datetime
 def finaloutput(wID, wTemp):
     # Thunderstorm
     if 200 <= wID <= 232:
-        senseLED.print_wTemp(wTemp, 0.1)
+        senseLED.print_wTemp(wTemp)
         senseLED.tstorm_animation()
 
     # Drizzle
     elif 300 <= wID <= 321:
-        senseLED.print_wTemp(wTemp, 0.1)
+        senseLED.print_wTemp(wTemp)
         senseLED.slowrain_animation()
 
     # Raining
     elif 500 <= wID <= 531:
-        senseLED.print_wTemp(wTemp, 0.1)
+        senseLED.print_wTemp(wTemp)
         senseLED.rain_animation()
 
     # Snow
     elif 600 <= wID <= 622:
-        senseLED.print_wTemp(wTemp, 0.1)
+        senseLED.print_wTemp(wTemp)
         senseLED.snow_animation()
 
     # Misty/Foggy
     elif 701 <= wID <= 781:
-        senseLED.print_wTemp(wTemp, 0.1)
+        senseLED.print_wTemp(wTemp)
         senseLED.haze_animation()
 
     # Clear Sky/ Sunny
     elif 800 <= wID <= 801:
-        senseLED.print_wTemp(wTemp, 0.1)
+        senseLED.print_wTemp(wTemp)
         senseLED.sun_animation()
 
     # Clouds
     elif 802 <= wID <= 804:
-        senseLED.print_wTemp(wTemp, 0.1)
+        senseLED.print_wTemp(wTemp)
         senseLED.cloud_animation()
 
     # No image available for this weather condition yet
     # Only Extreme weather condition will get this image (e.g. tornado, hurricane)
     else:
-        senseLED.print_wTemp(wTemp, 0.15)
+        senseLED.print_wTemp(wTemp)
         senseLED.img_qnmark(2)
 
 def printerror():
@@ -67,6 +67,13 @@ def checkpasttime(input):
     else:
         return True
 
+def sortkeys(dict):
+    sortedlist = []
+    for key in result.keys():
+        sortedlist.append(key)
+    sortedlist.sort()
+    return sortedlist
+
 print("\n==============================\n")
 
 # Check whether parameters are input correctly
@@ -76,15 +83,15 @@ if 5 >= len(sys.argv) >= 3:
         if len(sys.argv) == 3:
             print("Checking the current weather for '" + sys.argv[2] + "'\n")
             result = pyowmWeather.getcweather(sys.argv[2])
-            # Location not found
-            if result == False:
-                print("Location not found!")
-                senseLED.img_creeperSSS(2)
             # SUCCESS
-            else:
+            if result:
                 wID = result[1]
                 wTemp = result[2]
                 finaloutput(wID, wTemp)
+            # Location not found
+            else:
+                print("Location not found!")
+                senseLED.img_creeperSSS(2)
 
     # 3-hourly forecast
     elif sys.argv[1] == "3hfc":
@@ -96,7 +103,7 @@ if 5 >= len(sys.argv) >= 3:
                     # If day is today, check time is not past
                     if int(sys.argv[3]) == 0:
                         if checkpasttime(int(sys.argv[4])):
-                            print("Checking the forecasted weather for '" + sys.argv[2] + "'\n")
+                            print("Checking the forecasted weather for '" + sys.argv[2] + "' "  + "at " + sys.argv[4] + "00\n")
                             result = pyowmWeather.get3hfweather(sys.argv[2], sys.argv[3], sys.argv[4])
                             # Location not found
                             if result == False:
@@ -124,10 +131,26 @@ if 5 >= len(sys.argv) >= 3:
                     print("Please only enter days within the range 0-4\n")
                     senseLED.img_creeperSSS(2)
             else:
-                print("\tPlease only enter time in multiples of 3.\n")
+                print("\tPlease only enter time in m[]ultiples of 3.\n")
                 senseLED.img_creeperSSS(2)
         else:
             printerror()
+
+    elif sys.argv[1] == "forecast":
+        if len(sys.argv) == 3:
+            print("Getting the forecast for '" + sys.argv[2] + "'\n")
+            result = pyowmWeather.getcweather(sys.argv[2])
+            # SUCCESS
+            if result:
+                fdata = result[1]
+                doing = True
+                while doing:
+                    # Loop for the joystick
+                    doing = False
+            # Location not found
+            else:
+                print("Location not found!")
+                senseLED.img_creeperSSS(2)
 
     # # daily forecast
     # elif sys.argv[1] == "dailyfc":

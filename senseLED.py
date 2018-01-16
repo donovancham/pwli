@@ -69,8 +69,14 @@ def print_txt(text, scroll_speed):
     sense.show_message(text, scroll_speed, wordsgreen, black)
     sense.clear()
 
+def showtext(text):
+    sense.show_letter(str(text), text_colour = magenta)
+    sleep(0.5)
+    sense.clear()
+
 # Changes colour according to temperature
-def print_wTemp(wTemp, scroll_speed):
+def print_wTemp(wTemp):
+    scroll_speed = 0.08
     if -20 >= wTemp:
         sense.show_message("Temp: " + str(wTemp), scroll_speed, w1, black)
     elif -15 > wTemp >= -20:

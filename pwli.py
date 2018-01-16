@@ -67,13 +67,6 @@ def checkpasttime(input):
     else:
         return True
 
-def sortkeys(dict):
-    sortedlist = []
-    for key in result.keys():
-        sortedlist.append(key)
-    sortedlist.sort()
-    return sortedlist
-
 print("\n==============================\n")
 
 # Check whether parameters are input correctly
@@ -143,10 +136,6 @@ if 5 >= len(sys.argv) >= 3:
             # SUCCESS
             if result:
                 fdata = result[1]
-                doing = True
-                while doing:
-                    # Loop for the joystick
-                    doing = False
             # Location not found
             else:
                 print("Location not found!")

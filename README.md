@@ -22,7 +22,9 @@ Print help
 #### Get forecasted weather information
 Control selection by using the joystick
 >**Up/Down** -> Select the day
+>
 >**Left/Right** -> Select the time
+>
 >**Double press middle** -> display weather information through Sensehat
     
     # python3 pwli.py forecast [location]

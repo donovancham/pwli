@@ -4,6 +4,90 @@ from time import sleep
 
 sense=SenseHat()
 
+class WeatherController:
+    def __init__(self, output):
+        # Class variables
+        self.result = output
+        self.listdays = []
+        self.daytimes = []
+        self.d = 0
+        self.h = 0
+        for key in self.result.keys():
+            self.listdays.append(key)
+        self.listdays.sort()
+        print("Forecast for: ", self.listdays, sep='\t')
+
+        self.maxday = len(self.listdays) - 1
+
+        day = self.listdays[self.d]
+        for key in self.result[day].keys():
+            self.daytimes.append(key)
+        self.daytimes.sort(key=int)
+
+        self.maxhour = len(self.daytimes) - 1
+
+    def changeday(self):
+        self.daytimes = []
+        self.h = 0
+        day = self.listdays[self.d]
+        for key in self.result[day].keys():
+            self.daytimes.append(key)
+        self.daytimes.sort(key=int)
+
+        self.maxhour = len(self.daytimes) - 1
+
+    def __del__(self):
+        sense.clear()
+        print("\n\n\t\t\t\t\t\t\t\tClean up complete!\n")
+
+    def checkday(self, max):
+        sense.show_letter(str(self.d), text_colour=(255, 0, 255))
+        if max:
+            if self.d == self.maxday:
+                print("Stop! It is already at the last day!")
+                return True
+        else:
+            if self.d == 0:
+                print("Stop! It is already at the first day!")
+                return True
+        return False
+
+    def checktime(self, max):
+        sense.show_letter(str(self.h), text_colour=(140,200,70))
+        if max:
+            if self.h == self.maxhour:
+                print("Stop! It is already at the latest timing!")
+                return True
+        else:
+            if self.h == 0:
+                print("Stop! It is already at the earliest timing!")
+                return True
+        return False
+
+    def dayup(self):
+        self.d += 1
+        sense.show_letter(str(self.d), text_colour=(255,0,255))
+
+    def daydown(self):
+        self.d -= 1
+        sense.show_letter(str(self.d), text_colour=(255, 0, 255))
+
+    def timeup(self):
+        self.h += 1
+        sense.show_letter(str(self.h), text_colour=(140,200,70))
+
+    def timedown(self):
+        self.h -= 1
+        sense.show_letter(str(self.h), text_colour=(140,200,70))
+
+    def showweather(self):
+        day = self.listdays[self.d]
+        hour = self.daytimes[self.h]
+        final = self.result[day][hour]
+        wID = final["ID"]
+        wTemp = final["Temperature"]
+        finaloutput(wID, wTemp)
+
 # sense.set_rotation(270)
 
 # Colours
@@ -74,6 +158,70 @@ def showtext(text):
     sleep(0.5)
     sense.clear()
 
+def img_creeperSSS(tsleep):
+
+    # Print Picture
+    sense.set_pixels(creeper_pixels)
+
+    sleep(tsleep)
+    sense.clear()
+
+def img_qnmark(tsleep):
+    sense.set_pixels(questionMark)
+
+    sleep(tsleep)
+    sense.clear()
+
+# Print image by specifying link
+def img_link(link ,tsleep):
+    sense.load_image("/home/pi/pi_weatherLED_project_don/img" + link)
+
+    sleep(tsleep)
+    sense.clear()
+
+# Display weather information on Sensehat when called by main application
+def finaloutput(wID, wTemp):
+    # Thunderstorm
+    if 200 <= wID <= 232:
+        print_wTemp(wTemp)
+        tstorm_animation()
+
+    # Drizzle
+    elif 300 <= wID <= 321:
+        print_wTemp(wTemp)
+        slowrain_animation()
+
+    # Raining
+    elif 500 <= wID <= 531:
+        print_wTemp(wTemp)
+        rain_animation()
+
+    # Snow
+    elif 600 <= wID <= 622:
+        print_wTemp(wTemp)
+        snow_animation()
+
+    # Misty/Foggy
+    elif 701 <= wID <= 781:
+        print_wTemp(wTemp)
+        haze_animation()
+
+    # Clear Sky/ Sunny
+    elif 800 <= wID <= 801:
+        print_wTemp(wTemp)
+        sun_animation()
+
+    # Clouds
+    elif 802 <= wID <= 804:
+        print_wTemp(wTemp)
+        cloud_animation()
+
+    # No image available for this weather condition yet
+    # Only Extreme weather condition will get this image (e.g. tornado, hurricane)
+    else:
+        print_wTemp(wTemp)
+        img_qnmark(2)
+
 # Changes colour according to temperature
 def print_wTemp(wTemp):
     scroll_speed = 0.08
@@ -105,28 +253,6 @@ def print_wTemp(wTemp):
         sense.show_message("Temp: " + str(wTemp), scroll_speed, w13, black)
     else:
         sense.show_message("FAIL", scroll_speed)
-
-    sense.clear()
-
-def img_creeperSSS(tsleep):
-
-    # Print Picture
-    sense.set_pixels(creeper_pixels)
-
-    sleep(tsleep)
-    sense.clear()
-
-def img_qnmark(tsleep):
-    sense.set_pixels(questionMark)
-
-    sleep(tsleep)
-    sense.clear()
-
-# Print image by specifying link
-def img_link(link ,tsleep):
-    sense.load_image("/home/pi/pi_weatherLED_project_don/img" + link)
-
-    sleep(tsleep)
     sense.clear()
 
 # Animate 2 frames
@@ -153,6 +279,7 @@ def animate3(cc1, cc2, cc3, count, tsleep):
             chgfc = 1
         sleep(tsleep)
 
+# Weather animations
 def rain_animation():
 
     sense.low_light = True
@@ -393,3 +520,68 @@ def tstorm_animation():
         sleep(0.1)
 
     sense.clear()
+
+# Joystick weather information display
+def joystickweather(result):
+    wc = WeatherController(result)
+    print("\n\tSelect the data you want to output using the joystick\n\tUp/Down -> Select Day\tLeft/Right -> Select Time\n\t2x Middle -> Show Weather\tLong Press Middle -> Stop\n")
+
+    doing = True
+    cleanup = False
+    middle = 0
+    while doing:
+        event = sense.stick.wait_for_event()
+        if event.action == "pressed":
+            if event.direction == "up":
+                middle = 0
+                if not wc.checkday(True):
+                    wc.dayup()
+                    wc.changeday()
+            elif event.direction == "down":
+                middle = 0
+                if not wc.checkday(False):
+                    wc.daydown()
+                    wc.changeday()
+            elif event.direction == "left":
+                middle = 0
+                if not wc.checktime(False):
+                    wc.timedown()
+            elif event.direction == "right":
+                middle = 0
+                if not wc.checktime(True):
+                    wc.timeup()
+            # Double press middle to print
+            else:
+                middle += 1
+                if middle == 2:
+                    print("\nDisplaying forecast for: ", "Date: " + wc.listdays[wc.d], "Time: " + wc.daytimes[wc.h] + ":00", sep="\t")
+                    wc.showweather()
+                    middle = 0
+
+        elif event.action == "released":
+            continue
+
+        # Stop animation
+        elif event.action == "held":
+            if event.direction == "up":
+                if not wc.checkday(True):
+                    wc.dayup()
+                    wc.changeday()
+            elif event.direction == "down":
+                if not wc.checkday(False):
+                    wc.daydown()
+                    wc.changeday()
+            elif event.direction == "left":
+                if not wc.checktime(False):
+                    wc.timedown()
+            elif event.direction == "right":
+                if not wc.checktime(True):
+                    wc.timeup()
+            else:
+                cleanup = True
+
+        if cleanup:
+            del wc
+            doing = False
+
+    print("\n\t\tFinish!\n")

@@ -4,53 +4,54 @@ import senseLED
 import sys
 from datetime import datetime
 
-def finaloutput(wID, wTemp):
-    # Thunderstorm
-    if 200 <= wID <= 232:
-        senseLED.print_wTemp(wTemp)
-        senseLED.tstorm_animation()
-
-    # Drizzle
-    elif 300 <= wID <= 321:
-        senseLED.print_wTemp(wTemp)
-        senseLED.slowrain_animation()
-
-    # Raining
-    elif 500 <= wID <= 531:
-        senseLED.print_wTemp(wTemp)
-        senseLED.rain_animation()
-
-    # Snow
-    elif 600 <= wID <= 622:
-        senseLED.print_wTemp(wTemp)
-        senseLED.snow_animation()
-
-    # Misty/Foggy
-    elif 701 <= wID <= 781:
-        senseLED.print_wTemp(wTemp)
-        senseLED.haze_animation()
-
-    # Clear Sky/ Sunny
-    elif 800 <= wID <= 801:
-        senseLED.print_wTemp(wTemp)
-        senseLED.sun_animation()
-
-    # Clouds
-    elif 802 <= wID <= 804:
-        senseLED.print_wTemp(wTemp)
-        senseLED.cloud_animation()
-
-    # No image available for this weather condition yet
-    # Only Extreme weather condition will get this image (e.g. tornado, hurricane)
-    else:
-        senseLED.print_wTemp(wTemp)
-        senseLED.img_qnmark(2)
+# def finaloutput(wID, wTemp):
+#     # Thunderstorm
+#     if 200 <= wID <= 232:
+#         senseLED.print_wTemp(wTemp)
+#         senseLED.tstorm_animation()
+#
+#     # Drizzle
+#     elif 300 <= wID <= 321:
+#         senseLED.print_wTemp(wTemp)
+#         senseLED.slowrain_animation()
+#
+#     # Raining
+#     elif 500 <= wID <= 531:
+#         senseLED.print_wTemp(wTemp)
+#         senseLED.rain_animation()
+#
+#     # Snow
+#     elif 600 <= wID <= 622:
+#         senseLED.print_wTemp(wTemp)
+#         senseLED.snow_animation()
+#
+#     # Misty/Foggy
+#     elif 701 <= wID <= 781:
+#         senseLED.print_wTemp(wTemp)
+#         senseLED.haze_animation()
+#
+#     # Clear Sky/ Sunny
+#     elif 800 <= wID <= 801:
+#         senseLED.print_wTemp(wTemp)
+#         senseLED.sun_animation()
+#
+#     # Clouds
+#     elif 802 <= wID <= 804:
+#         senseLED.print_wTemp(wTemp)
+#         senseLED.cloud_animation()
+#
+#     # No image available for this weather condition yet
+#     # Only Extreme weather condition will get this image (e.g. tornado, hurricane)
+#     else:
+#         senseLED.print_wTemp(wTemp)
+#         senseLED.img_qnmark(2)
 
 def printerror():
     #Global Error message
-    cwusage = "GET CURRENT WEATHER DETAILS\n This will output the current weather details  (mainly temperature and weather condition) through the Raspberry Pi SenseHat module.\n\n Usage: python3 pwli.py current [location]\n Example: python3 pwli.py current kumamoto\n"
-    fwusage = "GET FORECAST WEATHER DETAILS\n This will output the forecast weather details which the user can choose. Note that the forecast timing is 3-hourly so the program will only accept the time input in multiples of 3. The forecast details are also limited to 4 days in advance.\n\n Usage: python3 pwli.py 3hfc [location] [How many days from current date (0-4)] [time]\n Example: python3 pwli.py 3hfc kumamoto 2 6"
-    print(cwusage, fwusage, sep='\n')
+    cwusage = "GET CURRENT WEATHER DETAILS\n This will output the current weather details  (mainly temperature and weather condition) through the Raspberry Pi SenseHat module.\n\n\tUsage: python3 pwli.py current [location]\n\tExample: python3 pwli.py current kumamoto\n"
+    fwusage = "GET FORECAST WEATHER DETAILS\n This will output the forecast weather details which the user can choose. Note that the forecast timing is 3-hourly so the program will only accept the time input in multiples of 3. The forecast details are also limited to 4 days in advance.\n\n\tUsage: python3 pwli.py 3hfc [location] [How many days from current date (0-4)] [time]\n\tExample: python3 pwli.py 3hfc kumamoto 2 6\n"
+    jwusage = "GET FORECAST WEATHER WITH JOYSTICK\n This allows the user to select the day and time for the weather forecast using the joystick on the Sensehat of the Raspberry Pi.\n\n\tUsage: python3 pwli.py forecast [location]\n\tUp/Down -> Select Day\tLeft/Right -> Select Time\n\t2x Middle -> Show Weather\tLong Press Middle -> Stop"
+    print(cwusage, fwusage, jwusage, sep='\n')
     senseLED.img_creeperSSS(2)
 
 def checktimedinput(input):
@@ -80,7 +81,7 @@ if 5 >= len(sys.argv) >= 3:
             if result:
                 wID = result[1]
                 wTemp = result[2]
-                finaloutput(wID, wTemp)
+                senseLED.finaloutput(wID, wTemp)
             # Location not found
             else:
                 print("Location not found!")
@@ -105,7 +106,7 @@ if 5 >= len(sys.argv) >= 3:
                             else:
                                 wID = result[1]
                                 wTemp = result[2]
-                                finaloutput(wID, wTemp)
+                                senseLED.finaloutput(wID, wTemp)
                         else:
                             print("Please do not enter a time earlier than the current time.\n")
                             senseLED.img_creeperSSS(2)
@@ -119,7 +120,7 @@ if 5 >= len(sys.argv) >= 3:
                         else:
                             wID = result[1]
                             wTemp = result[2]
-                            finaloutput(wID, wTemp)
+                            senseLED.finaloutput(wID, wTemp)
                 else:
                     print("Please only enter days within the range 0-4\n")
                     senseLED.img_creeperSSS(2)
@@ -132,10 +133,11 @@ if 5 >= len(sys.argv) >= 3:
     elif sys.argv[1] == "forecast":
         if len(sys.argv) == 3:
             print("Getting the forecast for '" + sys.argv[2] + "'\n")
-            result = pyowmWeather.getcweather(sys.argv[2])
+            result = pyowmWeather.getfullfweather(sys.argv[2])
             # SUCCESS
             if result:
                 fdata = result[1]
+                senseLED.joystickweather(fdata)
             # Location not found
             else:
                 print("Location not found!")

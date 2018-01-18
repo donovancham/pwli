@@ -1,5 +1,5 @@
 # Pi Weather LED Indicator (pwli)
-This project makes use of the [Sensehat](https://www.raspberrypi.org/products/sense-hat/) add-on board for the Raspberry Pi to output open source weather data from [OpenWeatherMap](https://openweathermap.org/). This project is created using Pycharm.
+This project makes use of the [Sensehat](https://www.raspberrypi.org/products/sense-hat/) add-on board for the Raspberry Pi to output open source weather data from [OpenWeatherMap](https://openweathermap.org/). This project is created using **Pycharm** and the README file is done using **Remarkable**.
 
 ## Main pwli usage
 ### Print help
@@ -126,4 +126,4 @@ This improvement is for the third function, using the joystick to display weathe
 - [Learning how to code with dictionaries in Python3](https://www.tutorialspoint.com/python/python_dictionary.htm)
 - [Learning how to code with lists in Python3](https://www.tutorialspoint.com/python/python_lists.htm)
 - [Learning about classes in Python](https://www.digitalocean.com/community/tutorials/understanding-class-and-instance-variables-in-python-3)
-- [Learning about reading and writing files in Python](http://www.pythonforbeginners.com/files/reading-and-writing-files-in-python)
+- [Learning about reading and writing files in Python](http://opentechschool.github.io/python-data-intro/core/text-files.html)

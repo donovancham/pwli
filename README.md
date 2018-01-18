@@ -15,9 +15,9 @@ This project makes use of the [Sensehat](https://www.raspberrypi.org/products/se
 
 - **[days later]** -> Number of days later from current day *(0-4)*
 - **[hour of day]** -> Time of day for forecast *(0, 3, 6, 9, 12, 15, 18, 21)*
-    
-    # python3 pwli.py 3hfc [location] [days later] [hour of day]
-    python3 pwli.py 3hfc ueki 1 12
+
+	    # python3 pwli.py 3hfc [location] [days later] [hour of day]
+	    python3 pwli.py 3hfc ueki 1 12
     
 #### Get forecasted weather information
 Control selection by using the joystick:
@@ -27,10 +27,11 @@ Control selection by using the joystick:
 - **Left/Right** -> Select the time
 
 - **Double press middle** -> display weather information through Sensehat
-    
-    # python3 pwli.py forecast [location]
-    python3 pwli.py forecast ueki
- 
+
+
+	    # python3 pwli.py forecast [location]
+	    python3 pwli.py forecast ueki
+	 
 ## Abstract
  This is a project which I have undertaken while I was doing my internship at Kumamoto National College of Technology in Japan. Thanks to Kanzaki Sensei who provided me with a fun project to experiment with new things.
 

@@ -1,11 +1,10 @@
 #!/usr/bin/python3.4
-import pyowmWeather
-import senseLED
-import pwli
+import senseLED, pyowmWeather
 
 from sense_hat import SenseHat
 from time import sleep
-import json
+import sys
+
 
 # sense = SenseHat()
 #
@@ -95,46 +94,108 @@ import json
 # senseLED.rain_animation()
 # senseLED.slowrain_animation()
 
-print('sep')
+def perror():
+    print("\n1 -> Print coloured temp\t2 -> Display animation with joystick\n")
 
-abc = SenseHat()
+if len(sys.argv) == 2:
+    if sys.argv[1] == "1":
+        sense = SenseHat()
+        # Colours
+        red = (255, 0, 0)
+        green = (0, 255, 0)
+        blue = (0, 0, 255)
+        yellow = (255, 255, 0)
+        orange = (255, 165, 0)
+        magenta = (255, 0, 255)
+        cyan = (0, 255, 255)
+        white = (255, 255, 255)
+        black = (0, 0, 0)
 
-doing = True
-waitinput = True
+        w1 = (50, 0, 180)
+        w2 = (100, 0, 140)
+        w3 = (0, 50, 150)
+        w4 = (0, 40, 255)
+        w5 = (0, 100, 255)
+        w6 = (0, 145, 255)
+        w7 = (0, 190, 255)
+        w8 = (150, 255, 255)
+        w9 = cyan
+        w10 = green
+        w11 = yellow
+        w12 = orange
+        w13 = red
 
-while doing:
-    if waitinput == True:
-        print("\n\tWaiting for user to input... \n")
-    event = abc.stick.wait_for_event()
-    print("The joystick was {} {}".format(event.action, event.direction))
+        for x in range(0, 13):
+            if x == 0:
+                sense.show_message(str(x), text_colour=w1)
+            elif x == 1:
+                sense.show_message(str(x), text_colour=w2)
+            elif x == 2:
+                sense.show_message(str(x), text_colour=w3)
+            elif x == 3:
+                sense.show_message(str(x), text_colour=w4)
+            elif x == 4:
+                sense.show_message(str(x), text_colour=w5)
+            elif x == 5:
+                sense.show_message(str(x), text_colour=w6)
+            elif x == 6:
+                sense.show_message(str(x), text_colour=w7)
+            elif x == 7:
+                sense.show_message(str(x), text_colour=w8)
+            elif x == 8:
+                sense.show_message(str(x), text_colour=w9)
+            elif x == 9:
+                sense.show_message(str(x), text_colour=w10)
+            elif x == 10:
+                sense.show_message(str(x), text_colour=w11)
+            elif x == 11:
+                sense.show_message(str(x), text_colour=w12)
+            elif x == 12:
+                sense.show_message(str(x), text_colour=w13)
 
-    if event.action == "pressed":
-        waitinput = False
-        if event.direction == "up":
-            senseLED.rain_animation()
-        elif event.direction == "down":
-            senseLED.snow_animation()
-        elif event.direction == "left":
-            senseLED.tstorm_animation()
-        elif event.direction == "right":
-            senseLED.slowrain_animation()
-    elif event.action == "released":
+    elif sys.argv[1] == "2":
+        print('sep')
+
+        abc = SenseHat()
+
+        doing = True
         waitinput = True
-        if event.direction == "up":
-            senseLED.sun_animation()
-        elif event.direction == "down":
-            senseLED.cloud_animation()
-        elif event.direction == "right":
-            senseLED.haze_animation()
-    # Stop animation
-    elif event.action == "held":
-        if event.direction == "middle":
-            doing = False
 
-    abc.clear()
-    sleep(1)
+        while doing:
+            if waitinput == True:
+                print("\n\tWaiting for user to input... \n")
+            event = abc.stick.wait_for_event()
+            print("The joystick was {} {}".format(event.action, event.direction))
 
-senseLED.img_creeperSSS(2)
+            if event.action == "pressed":
+                waitinput = False
+                if event.direction == "up":
+                    senseLED.rain_animation()
+                elif event.direction == "down":
+                    senseLED.snow_animation()
+                elif event.direction == "left":
+                    senseLED.tstorm_animation()
+                elif event.direction == "right":
+                    senseLED.slowrain_animation()
+            elif event.action == "released":
+                waitinput = True
+                if event.direction == "up":
+                    senseLED.sun_animation()
+                elif event.direction == "down":
+                    senseLED.cloud_animation()
+                elif event.direction == "right":
+                    senseLED.haze_animation()
+            # Stop animation
+            elif event.action == "held":
+                if event.direction == "middle":
+                    doing = False
+
+            abc.clear()
+            sleep(1)
+
+        senseLED.img_creeperSSS(2)
+else:
+    perror()
 
 # location = "ueki"
 # output = pyowmWeather.getfullfweather(location)
@@ -244,57 +305,3 @@ senseLED.img_creeperSSS(2)
 #             cleanup = True
 #
 # print("\n\t\tFinish!\n")
-
-# sense=SenseHat()
-# # Colours
-# red = (255,0,0)
-# green = (0,255,0)
-# blue = (0,0,255)
-# yellow = (255,255,0)
-# orange = (255,165,0)
-# magenta = (255,0,255)
-# cyan = (0,255,255)
-# white = (255,255,255)
-# black = (0,0,0)
-#
-# w1 = (50, 0, 180)
-# w2 = (100, 0, 140)
-# w3 = (0, 50, 150)
-# w4 = (0, 40, 255)
-# w5 = (0, 100, 255)
-# w6 = (0, 145, 255)
-# w7 = (0, 190, 255)
-# w8 = (150, 255, 255)
-# w9 = cyan
-# w10 = green
-# w11 = yellow
-# w12 = orange
-# w13 = red
-#
-# for x in range(0,13):
-#     if x == 0:
-#         sense.show_message(str(x), text_colour=w1)
-#     elif x == 1:
-#         sense.show_message(str(x), text_colour=w2)
-#     elif x == 2:
-#         sense.show_message(str(x), text_colour=w3)
-#     elif x == 3:
-#         sense.show_message(str(x), text_colour=w4)
-#     elif x == 4:
-#         sense.show_message(str(x), text_colour=w5)
-#     elif x == 5:
-#         sense.show_message(str(x), text_colour=w6)
-#     elif x == 6:
-#         sense.show_message(str(x), text_colour=w7)
-#     elif x == 7:
-#         sense.show_message(str(x), text_colour=w8)
-#     elif x == 8:
-#         sense.show_message(str(x), text_colour=w9)
-#     elif x == 9:
-#         sense.show_message(str(x), text_colour=w10)
-#     elif x == 10:
-#         sense.show_message(str(x), text_colour=w11)
-#     elif x == 11:
-#         sense.show_message(str(x), text_colour=w12)
-#     elif x == 12:
-#         sense.show_message(str(x), text_colour=w13)

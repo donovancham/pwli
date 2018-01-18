@@ -4,48 +4,6 @@ import senseLED
 import sys
 from datetime import datetime
 
-# def finaloutput(wID, wTemp):
-#     # Thunderstorm
-#     if 200 <= wID <= 232:
-#         senseLED.print_wTemp(wTemp)
-#         senseLED.tstorm_animation()
-#
-#     # Drizzle
-#     elif 300 <= wID <= 321:
-#         senseLED.print_wTemp(wTemp)
-#         senseLED.slowrain_animation()
-#
-#     # Raining
-#     elif 500 <= wID <= 531:
-#         senseLED.print_wTemp(wTemp)
-#         senseLED.rain_animation()
-#
-#     # Snow
-#     elif 600 <= wID <= 622:
-#         senseLED.print_wTemp(wTemp)
-#         senseLED.snow_animation()
-#
-#     # Misty/Foggy
-#     elif 701 <= wID <= 781:
-#         senseLED.print_wTemp(wTemp)
-#         senseLED.haze_animation()
-#
-#     # Clear Sky/ Sunny
-#     elif 800 <= wID <= 801:
-#         senseLED.print_wTemp(wTemp)
-#         senseLED.sun_animation()
-#
-#     # Clouds
-#     elif 802 <= wID <= 804:
-#         senseLED.print_wTemp(wTemp)
-#         senseLED.cloud_animation()
-#
-#     # No image available for this weather condition yet
-#     # Only Extreme weather condition will get this image (e.g. tornado, hurricane)
-#     else:
-#         senseLED.print_wTemp(wTemp)
-#         senseLED.img_qnmark(2)
-
 def printerror():
     #Global Error message
     cwusage = "GET CURRENT WEATHER DETAILS\n This will output the current weather details  (mainly temperature and weather condition) through the Raspberry Pi SenseHat module.\n\n\tUsage: python3 pwli.py current [location]\n\tExample: python3 pwli.py current kumamoto\n"
@@ -142,6 +100,8 @@ if 5 >= len(sys.argv) >= 3:
             else:
                 print("Location not found!")
                 senseLED.img_creeperSSS(2)
+        else:
+            printerror()
 
     # # daily forecast
     # elif sys.argv[1] == "dailyfc":

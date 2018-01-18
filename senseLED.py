@@ -38,7 +38,7 @@ class WeatherController:
 
     def __del__(self):
         sense.clear()
-        print("\n\n\t\t\t\t\t\t\t\tClean up complete!\n")
+        print("\n\t\tClean up complete!")
 
     def checkday(self, max):
         sense.show_letter(str(self.d), text_colour=(255, 0, 255))
@@ -584,4 +584,4 @@ def joystickweather(result):
             del wc
             doing = False
 
-    print("\n\t\tFinish!\n")
+    print("\t\tFinish!\n")

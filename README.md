@@ -1,17 +1,17 @@
 # Pi Weather LED Indicator (pwli)
 This project makes use of the [Sensehat](https://www.raspberrypi.org/products/sense-hat/) add-on board for the Raspberry Pi to output open source weather data from [OpenWeatherMap](https://openweathermap.org/). This project is created using Pycharm.
 
-## Usage
-#### Print help
+## Main pwli usage
+### Print help
     
     python3 pwli.py
     
-#### Get current weather information
+### Get current weather information
     
     # python3 pwli.py current [location]
     python3 pwli.py current ueki
     
-#### Get 3-hourly forecast information
+### Get 3-hourly forecast information
 
 - **[days later]** -> Number of days later from current day *(0-4)*
 - **[hour of day]** -> Time of day for forecast *(0, 3, 6, 9, 12, 15, 18, 21)*
@@ -19,7 +19,7 @@ This project makes use of the [Sensehat](https://www.raspberrypi.org/products/se
 	    # python3 pwli.py 3hfc [location] [days later] [hour of day]
 	    python3 pwli.py 3hfc ueki 1 12
     
-#### Get forecasted weather information
+### Get forecasted weather information
 Control selection by using the joystick:
 
 - **Up/Down** -> Select the day
@@ -31,7 +31,20 @@ Control selection by using the joystick:
 
 	    # python3 pwli.py forecast [location]
 	    python3 pwli.py forecast ueki
-	 
+
+## Offline pwli Usage
+### Print help
+
+    python3 offlinepwli.py
+
+### Update data cache
+
+    python3 offlinepwli.py update [location]
+
+### Play with Joystick
+
+    python3 offlinepwli.py forecast
+
 ## Abstract
  This is a project which I have undertaken while I was doing my internship at Kumamoto National College of Technology in Japan. Thanks to Kanzaki Sensei who provided me with a fun project to experiment with new things.
 
@@ -95,6 +108,13 @@ This improvement is for the third function, using the joystick to display weathe
 - Finished function to select weather by using joystick
 - Improved smoothness by using double press to output weather instead of single press which clashes with the kill function
 
+### v1.5
+- Further improved error checking functions
+- Adedd offline version of pwli for demo purposes
+  - Offline version able to cache data from the server for forecasts
+  - Only available for joystick forecast weather function
+  - Data stored only for fixed pre-cached locations
+
 ## References
 - [OpenWeatherMap list of weather conditions](https://openweathermap.org/weather-conditions)
 - [pyOWM](https://github.com/csparpa/pyowm)
@@ -106,3 +126,4 @@ This improvement is for the third function, using the joystick to display weathe
 - [Learning how to code with dictionaries in Python3](https://www.tutorialspoint.com/python/python_dictionary.htm)
 - [Learning how to code with lists in Python3](https://www.tutorialspoint.com/python/python_lists.htm)
 - [Learning about classes in Python](https://www.digitalocean.com/community/tutorials/understanding-class-and-instance-variables-in-python-3)
+- [Learning about reading and writing files in Python](http://www.pythonforbeginners.com/files/reading-and-writing-files-in-python)

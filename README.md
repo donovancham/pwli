@@ -115,6 +115,9 @@ This improvement is for the third function, using the joystick to display weathe
   - Only available for joystick forecast weather function
   - Data stored only for fixed pre-cached locations
 
+#### v1.5.1
+- Added function to offline version to get current temperature from the Sensehat sensor
+
 ## References
 - [OpenWeatherMap list of weather conditions](https://openweathermap.org/weather-conditions)
 - [pyOWM](https://github.com/csparpa/pyowm)

@@ -143,6 +143,10 @@ questionMark = [
     O, O, O, X, O, O, O, O
 ]
 
+def getcurrenttemp():
+    temp = sense.get_temperature()
+    return temp
+
 def testprint(tsleep):
     # Print message
     sense.show_message("Weather App", 0.05, red, white)

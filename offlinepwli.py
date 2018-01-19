@@ -52,6 +52,10 @@ if 3 >= len(sys.argv) >= 2:
             location = sys.argv[2]
             updatecache(location)
 
+    elif sys.argv[1] == "current":
+        tempnow = senseLED.getcurrenttemp()
+        print("The current temperature is: " + tempnow)
+
     else:
         printerror()
 else:

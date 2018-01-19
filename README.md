@@ -45,6 +45,10 @@ Control selection by using the joystick:
 
     python3 offlinepwli.py forecast
 
+### Get current temperature in REALTIME
+
+    python3 offlinepwli.py current
+
 ## Abstract
  This is a project which I have undertaken while I was doing my internship at Kumamoto National College of Technology in Japan. Thanks to Kanzaki Sensei who provided me with a fun project to experiment with new things.
 

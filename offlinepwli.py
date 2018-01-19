@@ -54,7 +54,8 @@ if 3 >= len(sys.argv) >= 2:
 
     elif sys.argv[1] == "current":
         tempnow = senseLED.getcurrenttemp()
-        print("The current temperature is: " + tempnow)
+        print("The current temperature is: " + str(tempnow))
+        senseLED.print_wTemp(int(tempnow))
 
     else:
         printerror()
